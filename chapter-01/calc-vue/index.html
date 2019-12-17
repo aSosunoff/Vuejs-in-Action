@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A Vue Calculator</title>
+    <style>
+        p, input{ font-family: monospace; }
+        p { white-space: pre; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p> x <input v-model='x'> </p>
+        <p> y <input v-model='y'> </p>
+        <p>------------------------------------------</p>
+        <p> = <span v-text='result'></span></p>
+    </div>
+    
+<!-- версия для разработки, отображает полезные предупреждения в консоли -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js.js"></script>
+</body>
+</html>
