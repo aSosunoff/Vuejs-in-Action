@@ -9,13 +9,36 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <script>
+        var APP_LOG_LIFECYCLE_EVENTS = false;
+    </script>
 </head>
 <body>
-    <div id="app">
-        <header>
-            <h1 v-text="sitename"></h1>
-        </header>
+    <div id="app" class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <header>
+                    <h1 v-text="sitename"></h1>
+                </header>
+            </div>
+        </div>
+
+        <div class="row product">
+            <div class="col-lg-4">
+                <figure>
+                    <img :src="product.img">
+                </figure>
+            </div>
+            <div class="col-lg-8 col-expand">
+                <h1 v-text="product.title"></h1>
+                <p v-text="product.description"></p>
+                <p>{{ product.price | formatPrice }}</p>
+            </div>
+        </div>
     </div>
+
+
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
