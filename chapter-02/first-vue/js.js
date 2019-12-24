@@ -1,20 +1,21 @@
-var nav = new Vue({
-    el: "#web_store_nav",
-    data: {
-        sitename: 'Vue.js',
-    }
-});
-
 var webstore = new Vue({
     el: '#app',
     data: {
+        sitename: 'Vue.js',
+        firstName: 'Alex',
+        lastName: 'Flex',
+
         product: {
             id: 1001,
             title: "Produc Title",
             description: "qweqweqweqweqwe qweqweqwe",
             price: 2000,
-            img: "1.jpg"
+            img: "1.jpg",
+            availableInvectory: 5,
         },
+        cart: [],
+        
+        showProduct: true,
     },
     filters: {
         formatPrice: function(price){
@@ -31,6 +32,28 @@ var webstore = new Vue({
             } else {
                 return "$" + (price / 100).toFixed(2);
             }
+        }
+    },
+    methods: {
+        addToCart() {
+            this.cart.push(this.product.id);
+        },
+        showCheckout(){
+            this.showProduct = this.showProduct ? false : true;
+        }
+    },
+    computed: {
+        fullName() {
+            return [this.firstName, this.lastName].join(' ');
+        },
+        cartItemCount() {
+            return this.cart.length || ''; 
+        },
+        canAddToCart(){
+            return this.product.availableInvectory > this.cartItemCount;
+        },
+        hasProductToCart(){
+            return this.cartItemCount > 0;
         }
     },
 
