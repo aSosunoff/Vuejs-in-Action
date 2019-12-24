@@ -1,7 +1,13 @@
+var nav = new Vue({
+    el: "#web_store_nav",
+    data: {
+        sitename: 'Vue.js',
+    }
+});
+
 var webstore = new Vue({
     el: '#app',
     data: {
-        sitename: 'Vue.js',
         product: {
             id: 1001,
             title: "Produc Title",
