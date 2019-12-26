@@ -44,11 +44,112 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid"
-            v-else>
+
+        <div class="container" v-else>
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <strong>Введите информацию о себе</strong>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <strong>Имя</strong>
+                    <input class="form-control" type="text" v-model.trim.lazy="order.name" />
+                </div>
+                <div class="col-lg-6">
+                    <strong>Фамилия</strong>
+                    <input class="form-control" type="text" v-model.trim.lazy="order.surname" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <strong>Адрес</strong>
+                    <input class="form-control" type="text" v-model.trim.lazy="order.address" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <strong>Город</strong>
+                    <input class="form-control" type="text" v-model.trim.lazy="order.city" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <strong>Область</strong>
+                    <select class="form-control" type="text" v-model.lazy="order.state">
+                        <option value="" disabled>область</option>
+                        
+                        <option
+                            v-for="(state, index) in order.statesValue" :key="index"
+                            v-bind:value="index">{{ state }}</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-6">
+                    <strong>Индекс</strong>
+                    <input class="form-control" type="number" v-model.number.lazy="order.zip" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <div class="form-check">
+                        <input
+                            type="checkbox" 
+                            id="gift"
+                            class="form-check-input" 
+                            v-bind:true-value="order.giftValue.sendGift"
+                            v-bind:false-value="order.giftValue.dontSendGift"
+                            v-model.lazy="order.gift" />
+                        <label class="form-check-label" for="gift">Отправить как подарок?</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-check-inline">
+                        <input 
+                            type="radio" 
+                            id="home" 
+                            class="form-check-input"
+                            v-bind:value="order.methodValue.home"
+                            v-model.lazy="order.method" />
+                        <label class="form-check-label" for="home">Дом</label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input 
+                            type="radio" 
+                            id="business" 
+                            class="form-check-input" 
+                            v-bind:value="order.methodValue.business"
+                            v-model.lazy="order.method" />
+                        <label class="form-check-label" for="business">Работа</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-12 text-center">
+                    <button type="button" class="btn btn-primary"
+                        v-on:click="submitForm">Заказать</button>
+                </div>
+            </div>
+
             <div class="row">
-                <div class="col-lg-2">
-                    TEst
+                <div class="col-lg-12">
+                    <pre class="alert alert-secondary">
+                        Имя: {{ order.name }}
+                        Фамилия: {{ order.surname }}
+                        Адресс: {{ order.address }}
+                        Город: {{ order.city }}
+                        Штат: {{ order.state }}
+                        Индекс: {{ order.zip }}
+                        Метод: {{ order.method }}
+                        Подарок: {{ order.gift }}
+                    </pre>
                 </div>
             </div>
         </div>

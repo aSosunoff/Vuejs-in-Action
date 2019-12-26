@@ -15,6 +15,34 @@ var webstore = new Vue({
         cart: [],
         
         showProduct: true,
+
+        order: {
+            name: "",
+            surname: "",
+            address: "",
+            city: "",
+            zip: null,
+            
+            state: "",
+            statesValue: {
+                1: 'Нижегородская',
+                2: 'Владимирская',
+                3: 'Московская',
+                4: 'Архангельская',
+            },
+
+            gift: 'Не отправлять как подарок',
+            giftValue: {
+                sendGift: 'Отправить как подарок',
+                dontSendGift: 'Не отправлять как подарок',
+            },
+
+            method: "Домашний адрес",
+            methodValue: {
+                home: "Домашний адрес",
+                business: "Рабочий адрес"
+            }
+        }
     },
     filters: {
         formatPrice: function(price){
@@ -39,6 +67,9 @@ var webstore = new Vue({
         },
         showCheckout(isShow){
             this.showProduct = isShow;
+        },
+        submitForm(){
+            alert('Заказ');
         }
     },
     computed: {
