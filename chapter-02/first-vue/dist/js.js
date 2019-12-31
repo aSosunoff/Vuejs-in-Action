@@ -4,6 +4,7 @@
 var webstore = new Vue({
     el: '#app',
     data: {
+        products: [],
         product: {
             id: 1001,
             title: "Produc Title",
@@ -13,6 +14,7 @@ var webstore = new Vue({
             availableInvectory: 10,
             rating: 3
         },
+        
         cart: [],
         
         showProduct: true,
@@ -95,6 +97,14 @@ var webstore = new Vue({
     created: function(){
         if(APP_LOG_LIFECYCLE_EVENTS)
             console.log('created');
+
+        axios.get('./product.json')
+            .then(response => {
+                this.products = response.data.products;
+            })
+            .catch(error => {
+                console.log('Произошла ошибка загрузки товаров');
+            });
     },
     beforeMount: function(){
         if(APP_LOG_LIFECYCLE_EVENTS)
