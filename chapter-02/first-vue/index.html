@@ -10,6 +10,14 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
 
+    <style>
+        .rating-active::before{
+            content: '\2605';
+            position: absolute;
+            color: gold;
+        }
+    </style>
+
     <script>
         var APP_LOG_LIFECYCLE_EVENTS = false;
     </script>
@@ -20,25 +28,50 @@
             v-bind:has-product-to-cart='hasProductToCart' 
             v-bind:cart-item-count="cartItemCount"
             v-on:show_checkout="showCheckout"></app-nav>
+
+            <!-- <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                
+            </div> -->
+            
             
         <div class="container-fluid"
-            v-if="showProduct">
+            v-if="showProduct">            
             <div class="row">
                 <div class="col-lg-2">
                     <div class="card text-center">
                         <img class="card-img-top" :src="product.img" :alt="product.title">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.title }}</h5>
+                            
                             <p class="card-text">{{ product.description }}</p>
+                            
+                            <p class="card-text"
+                                v-if="countAvailable > 5">
+                                Товар в наличии</p>
+
+                            <p class="card-text"
+                                v-else-if="countAvailable == 0">
+                                Товар закончился</p>
+
+                            <p class="card-text"
+                                v-else="">
+                                Всего товара на складе - {{ countAvailable }}</p>
+
                             <a href="#" class="btn btn-primary" 
                                 @click="addToCart"
                                 v-if="canAddToCart">
                                     Добавить в корзину
                             </a>
+                            
                             <a href="#" class="btn btn-secondary disabled"
                                 v-else>
                                     товар закончился
                             </a>
+
+                            <p class="card-text">
+                                <span v-for="n in 5" class="rating"
+                                    v-bind:class="{'rating-active': n <= product.rating}">☆</span>
+                            </p>
                         </div>
                       </div>
                 </div>
@@ -155,7 +188,8 @@
         </div>
     </span>
     
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <!-- версия для разработки, отображает полезные предупреждения в консоли -->

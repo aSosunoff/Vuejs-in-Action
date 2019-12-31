@@ -10,7 +10,8 @@ var webstore = new Vue({
             description: "qweqweqweqweqwe qweqweqwe",
             price: 2000,
             img: "1.jpg",
-            availableInvectory: 5,
+            availableInvectory: 10,
+            rating: 3
         },
         cart: [],
         
@@ -42,7 +43,7 @@ var webstore = new Vue({
                 home: "Домашний адрес",
                 business: "Рабочий адрес"
             }
-        }
+        },
     },
     filters: {
         formatPrice: function(price){
@@ -70,18 +71,21 @@ var webstore = new Vue({
         },
         submitForm(){
             alert('Заказ');
-        }
+        },
     },
     computed: {
         cartItemCount() {
             return this.cart.length || ''; 
+        },
+        countAvailable(){
+            return this.product.availableInvectory - this.cartItemCount;
         },
         canAddToCart(){
             return this.product.availableInvectory > this.cartItemCount;
         },
         hasProductToCart(){
             return this.cartItemCount > 0;
-        }
+        },
     },
 
     beforeCreate: function(){
