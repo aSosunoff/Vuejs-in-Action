@@ -4,7 +4,7 @@
   "description": "",
   "main": "js.js",
   "scripts": {
-    "server": "./node_modules/.bin/http-server \"d:\\Projects\\Vuejs-in-Action\\chapter-02\\first-vue\\dist\" -p 8080"
+    "server": "./node_modules/.bin/http-server \"d:\\Projects\\Vuejs-in-Action\\chapter-02\\first-vue\\dist\" -p 8080 -o"
   },
   "author": "",
   "license": "ISC",

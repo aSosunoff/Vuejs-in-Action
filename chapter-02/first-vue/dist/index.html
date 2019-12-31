@@ -19,7 +19,7 @@
     </style>
 
     <script>
-        var APP_LOG_LIFECYCLE_EVENTS = true;
+        var APP_LOG_LIFECYCLE_EVENTS = false;
     </script>
 </head>
 <body>
@@ -30,8 +30,26 @@
             v-on:show_checkout="showCheckout"></app-nav>
             
         <div class="container"
-            v-if="showProduct">            
-            <div class="row" v-for="product in products" :key="product.id">
+            v-if="showProduct">
+            
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <strong>Сортировка по наименованию</strong>
+                    <select class="form-control" type="text" v-model.number.lazy="sortProduct.direction">
+                        <option
+                            v-for="(state, index) in sortProduct.list" :key="index"
+                            v-bind:value="index">{{ state }}</option>
+                    </select>
+                </div>
+
+                <!-- <div class="col-lg-6">
+                    <strong>Индекс</strong>
+                    <input class="form-control" type="number" v-model.number.lazy="order.zip" />
+                </div> -->
+            </div>
+
+
+            <div class="row" v-for="product in sortProducts" :key="product.id">
 
                 <div class="card md-12">
                     <div class="row no-gutters">
@@ -41,7 +59,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
-                                <p class="card-text">{{product.description}}</p>
+                                <p class="card-text">{{ product.description }}</p>
                             
                                 <p class="card-text"
                                     v-if="countAvailable(product.id) > 5">

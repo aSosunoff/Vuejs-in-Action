@@ -37,6 +37,14 @@ var webstore = new Vue({
                 business: "Рабочий адрес"
             }
         },
+
+        sortProduct: {
+            direction: 0,
+            list: {
+                0: "По возрастанию",
+                1: "По убыванию"
+            }
+        }
     },
     filters: {
         formatPrice: function(price){
@@ -94,10 +102,21 @@ var webstore = new Vue({
         cartItemCount() {
             return this.cart.length || ''; 
         },
-        
         hasProductToCart(){
             return this.cartItemCount > 0;
         },
+        sortProducts(){
+            if(this.products.length){
+                return [...this.products].sort((a, b) => {
+                    if(a.title.toLowerCase() < b.title.toLowerCase())
+                        return this.sortProduct.direction === 0 ? -1 : 1;
+                    else if(a.title.toLowerCase() > b.title.toLowerCase())
+                        return this.sortProduct.direction === 1 ? 1 : -1;
+                    
+                    return 0;
+                });
+            }
+        }
     },
 
     beforeCreate: function(){
