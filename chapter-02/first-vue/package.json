@@ -1,0 +1,14 @@
+{
+  "name": "first-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js.js",
+  "scripts": {
+    "server": "./node_modules/.bin/http-server \"d:\\Projects\\Vuejs-in-Action\\chapter-02\\first-vue\\dist\" -p 8080"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.12.0"
+  }
+}
