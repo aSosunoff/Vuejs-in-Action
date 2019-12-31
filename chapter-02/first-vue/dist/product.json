@@ -26,6 +26,15 @@
             "img": "1.jpg",
             "availableInvectory": 5,
             "rating": 5
+        },
+        {
+            "id" : 1004,
+            "title": "Produc Title 3",
+            "description": "qweqweqweqweqwe qweqweqwe",
+            "price": 3221,
+            "img": "1.jpg",
+            "availableInvectory": 5,
+            "rating": 5
         }
     ]
 }

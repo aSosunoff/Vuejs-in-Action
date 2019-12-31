@@ -28,52 +28,57 @@
             v-bind:has-product-to-cart='hasProductToCart' 
             v-bind:cart-item-count="cartItemCount"
             v-on:show_checkout="showCheckout"></app-nav>
-
-            <!-- <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-                
-            </div> -->
             
-            
-        <div class="container-fluid"
+        <div class="container"
             v-if="showProduct">            
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="card text-center">
-                        <img class="card-img-top" :src="product.img" :alt="product.title">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.title }}</h5>
-                            
-                            <p class="card-text">{{ product.description }}</p>
-                            
-                            <p class="card-text"
-                                v-if="countAvailable > 5">
-                                Товар в наличии</p>
+            <div class="row" v-for="product in products" :key="product.id">
 
-                            <p class="card-text"
-                                v-else-if="countAvailable == 0">
-                                Товар закончился</p>
-
-                            <p class="card-text"
-                                v-else="">
-                                Всего товара на складе - {{ countAvailable }}</p>
-
-                            <a href="#" class="btn btn-primary" 
-                                @click="addToCart"
-                                v-if="canAddToCart">
-                                    Добавить в корзину
-                            </a>
-                            
-                            <a href="#" class="btn btn-secondary disabled"
-                                v-else>
-                                    товар закончился
-                            </a>
-
-                            <p class="card-text">
-                                <span v-for="n in 5" class="rating"
-                                    v-bind:class="{'rating-active': n <= product.rating}">☆</span>
-                            </p>
+                <div class="card md-12">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img class="card-img" :src="product.img" :alt="product.title">
                         </div>
-                      </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.title }}</h5>
+                                <p class="card-text">{{product.description}}</p>
+                            
+                                <p class="card-text"
+                                    v-if="countAvailable(product.id) > 5">
+                                    <small class="text-muted">Товар в наличии</small>
+                                </p>
+
+                                <p class="card-text"
+                                    v-else-if="countAvailable(product.id) == 0">
+                                    <small class="text-muted">Товар закончился</small>
+                                </p>
+
+                                <p class="card-text"
+                                    v-else>
+                                    <small class="text-muted">Всего товара на складе - {{ countAvailable(product.id) }}</small></p>
+
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-primary" 
+                                    v-on:click="addToCart(product.id)"
+                                    v-if="canAddToCart(product.id)">
+                                        Добавить в корзину
+                                </a>
+                                
+                                <a href="#" class="btn btn-secondary disabled"
+                                    v-else>
+                                        товар закончился
+                                </a>
+
+                                <p class="card-text">
+                                    <span v-for="n in 5" class="rating"
+                                        v-bind:class="{'rating-active': n <= product.rating}">☆</span>
+                                </p>
+
+                                <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

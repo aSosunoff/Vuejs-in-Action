@@ -5,15 +5,6 @@ var webstore = new Vue({
     el: '#app',
     data: {
         products: [],
-        product: {
-            id: 1001,
-            title: "Produc Title",
-            description: "qweqweqweqweqwe qweqweqwe",
-            price: 2000,
-            img: "1.jpg",
-            availableInvectory: 10,
-            rating: 3
-        },
         
         cart: [],
         
@@ -65,8 +56,8 @@ var webstore = new Vue({
         }
     },
     methods: {
-        addToCart() {
-            this.cart.push(this.product.id);
+        addToCart(id) {
+            this.cart.push(id);
         },
         showCheckout(isShow){
             this.showProduct = isShow;
@@ -74,17 +65,36 @@ var webstore = new Vue({
         submitForm(){
             alert('Заказ');
         },
+        countAvailable(id){
+            let product = this.products.find(p => p.id == id);
+
+            if(product)
+                return product.availableInvectory - this.cart.filter(f => f == id).length;
+            
+            return 0;
+        },
+        canAddToCart(id){
+            return this.countAvailable(id) > 0;
+        },
+        loadProduct(){
+            axios.get('./product.json')
+                .then(response => {
+                    this.products = response.data.products;
+
+                    let newProducts = response.data.products.filter(e => !~this.products.map(m => m.id).indexOf(e.id));
+                    
+                    this.products.push(...newProducts);
+                })
+                .catch(error => {
+                    console.log('Произошла ошибка загрузки товаров');
+                });
+        }
     },
     computed: {
         cartItemCount() {
             return this.cart.length || ''; 
         },
-        countAvailable(){
-            return this.product.availableInvectory - this.cartItemCount;
-        },
-        canAddToCart(){
-            return this.product.availableInvectory > this.cartItemCount;
-        },
+        
         hasProductToCart(){
             return this.cartItemCount > 0;
         },
@@ -98,13 +108,7 @@ var webstore = new Vue({
         if(APP_LOG_LIFECYCLE_EVENTS)
             console.log('created');
 
-        axios.get('./product.json')
-            .then(response => {
-                this.products = response.data.products;
-            })
-            .catch(error => {
-                console.log('Произошла ошибка загрузки товаров');
-            });
+        this.loadProduct();
     },
     beforeMount: function(){
         if(APP_LOG_LIFECYCLE_EVENTS)
