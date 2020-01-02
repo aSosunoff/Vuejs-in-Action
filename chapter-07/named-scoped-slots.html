@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <book-component v-bind:books='books'>
+            <h1 slot='headerSlot'>{{header}}</h1>
+            <template slot="bookSlot" slot-scope="props">
+                <h2>{{props.objBook.author}}</h2>
+                <h3 
+                    v-for="(title, title_id) in props.objBook.title" 
+                    :key="title_id + '_' + props.bookId">- {{title}}</h3>
+            </template>
+        </book-component>
+    </div>
+
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        const bookComponent = {
+            props: ['books'],
+            template: `
+                <div>
+                    <slot name="headerSlot"></slot>
+                    <slot name="bookSlot" 
+                        v-for="(book, book_id) in books" 
+                        v-bind:book-id="book_id"
+                        v-bind:obj-book="book"></slot>
+                </div>
+            `,
+        };
+
+        new Vue({
+            el: '#app',
+            data: {
+                header: 'Список книг',
+                books: [
+                    {
+                        author: 'Кайл Бэнкер', 
+                        title: ['MongoDB в действии', 'ещё книга', 'и ещё одна книга']},
+                    {
+                        author: 'Дмитрий Айвалиотис', 
+                        title: ['Администрирование сервера NGINX', 'ещё книга' ]
+                    },
+                    {
+                        author: 'Беэр Бибо, Иегуда Кац, Аурелио де Роза', 
+                        title: ['jQuery в действии', 'ещё книга', 'и ещё одна книга']
+                    },
+                ]
+            },
+            components: {
+                'book-component': bookComponent
+            }
+        });
+    </script>
+</body>
+</html>

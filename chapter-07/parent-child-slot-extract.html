@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <form-component
+            v-bind:title="titleLabel"
+            v-bind:author="authorLabel">
+            <h1>{{header}}</h1>
+        </form-component>
+    </div>
+
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        const formComponent = {
+            props: ['title', 'author'],
+            template: `
+                <div>
+                    <slot></slot>
+                    <div>
+                        <label for="title">{{title}}</label>
+                        <input id="title" type="text"/>
+                    </div>
+                    <div>
+                        <label for="author">{{author}}</label>
+                        <input id="author" type="text"/>
+                    </div>
+                    <button>Отправить</button>
+                </div>
+            `,
+        };
+
+        new Vue({
+            el: '#app',
+            data: {
+                header: 'Заголовок',
+                titleLabel: 'Наименование',
+                authorLabel: 'Автор',
+            },
+            components: {
+                'form-component': formComponent
+            }
+        });
+    </script>
+</body>
+</html>
