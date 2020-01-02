@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="cycle">Следующий</button>
+        <h1>
+            <component :is="currentView" v-bind:i="i"></component>
+        </h1>
+    </div>
+
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        const HeaderComponent = {
+            template: '<div>Заголовок {{i}}</div>',
+            props: ['i']
+        };
+
+        const BookComponent = {
+            template: '<div>Книги {{i}}</div>',
+            props: ['i']
+        };
+
+        const FormComponent = {
+            template: '<div>Форма {{i}}</div>',
+            props: ['i']
+        };
+
+        new Vue({
+            el: '#app',
+            components: {
+                //'header-component': HeaderComponent,
+                //'book-component': BookComponent,
+                //'form-component': FormComponent,
+            },
+            data: {
+                currentView: HeaderComponent,
+                i: 1,
+            },
+            methods: {
+                cycle() {
+                    if(this.currentView === HeaderComponent){
+                        this.currentView = BookComponent;
+                    } else if(this.currentView === BookComponent) {
+                        this.currentView = FormComponent;
+                    } else if(this.currentView === FormComponent) {
+                        this.currentView = HeaderComponent;
+                    }
+                },
+            },
+        });
+    </script>
+</body>
+</html>
