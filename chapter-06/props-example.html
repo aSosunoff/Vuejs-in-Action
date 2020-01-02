@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-component
+            v-bind:cmd_string='my_string'
+            v-bind:cmd_number='my_number'
+            v-bind:cmd_object='my_object'
+            v-bind:cmd_valid_property='my_string'></my-component>
+    </div>
+
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            components: {
+                'my-component': {
+                    template: '<div>String: {{cmd_string}}<br/>Number: {{cmd_number}}<br/>Object: {{cmd_object}}<br/>Validator Property {{cmd_valid_property}}</div>',
+                    props: {
+                        'cmd_string': {
+                            type: String,
+                            default: 'Значение по умолчанию' 
+                        },
+                        'cmd_number': {
+                            type: Number,
+                            required: true
+                        },
+                        'cmd_object': {
+                            type: Object,
+                            default: () => {
+                                return {
+                                    message: 'Значение по умолчанию',
+                                    age: 10
+                                }
+                            }
+                        },
+                        'cmd_valid_property': {
+                            validator: (value) => {
+                                return value.match(/Привет/);
+                            }
+                        }
+                    }
+                }
+            },
+            data: {
+                my_string: 'Привет',
+                my_number: 10,
+                my_object: {
+                    name: 'Андрей'
+                },
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div:not(#app){
+            padding: 10px;
+            border: 1px solid black;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+    </div>
+
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        const MyComponent = {
+            template: '<div v-on:click="++count">{{count}}</div>',
+            data(){
+                return {
+                    count: 0
+                }
+            }
+        };
+
+        const vueProgram = new Vue({
+            el: '#app',
+            components: {
+                'my-component': MyComponent
+            },
+        });
+    </script>
+</body>
+</html>
