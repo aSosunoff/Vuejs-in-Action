@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>{{count}}</div>
+        <div>
+            <button v-on:click="incrementCount">Нажать</button>
+        </div>
+        <div>
+            <my-component v-on:cmd-click="incrementCount"></my-component>
+        </div>
+    </div>
+    
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            components: {
+                'my-component': {
+                    template: '<button v-on:click="incFromChild">Нажать</button>',
+                    methods: {
+                        incFromChild(){
+                            this.$emit("cmd-click");
+                        }
+                    }
+                }
+            },
+            data: {
+                count: 0,
+            },
+            methods: {
+                incrementCount() {
+                    this.count += 1;
+                },
+            },
+        });
+    </script>
+</body>
+</html>
