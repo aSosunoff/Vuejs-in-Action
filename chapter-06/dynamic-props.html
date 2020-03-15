@@ -16,6 +16,7 @@
 
     <script>
         const MyComponent = {
+            name: 'my-component',
             template: '<div>{{text}}</div>',
             props: ['text']
         };
@@ -23,7 +24,7 @@
         const vueProgram = new Vue({
             el: '#app',
             components: {
-                'my-component': MyComponent
+                MyComponent
             },
             data: {
                 message: 'Привет'

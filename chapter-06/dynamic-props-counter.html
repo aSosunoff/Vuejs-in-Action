@@ -27,6 +27,7 @@
 
     <script>
         const MyComponent = {
+            name: 'my-component',
             template: '<div v-on:click="++count">{{count}}</div>',
             data(){
                 return {
@@ -38,7 +39,7 @@
         const vueProgram = new Vue({
             el: '#app',
             components: {
-                'my-component': MyComponent
+                MyComponent
             },
         });
     </script>
